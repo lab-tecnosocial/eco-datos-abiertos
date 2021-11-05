@@ -10,14 +10,14 @@
 
   <ng-select class="editor-box" (change)="onChange($event)" [items]="itemsNode" [(ngModel)]="selectedNodeSearch"
     *ngIf="searching" style="position: absolute;
-  top: 50%;
+  top: 25%;
   left: 50%;
   width: 192px;
   margin-right: -50%;
   transform: translate(-50%, -50%)" placeholder="Buscar Nodo" name="something">
   </ng-select>
 
-  <div style="
+  <div *ngIf="!searching" style="
     top: 0;
     right: 0;
     margin: 16px;
@@ -37,7 +37,7 @@
 
 
 
-  <div style="
+  <div *ngIf="!searching" style="
     top: 0;
     left: 0;
     margin: 16px;
