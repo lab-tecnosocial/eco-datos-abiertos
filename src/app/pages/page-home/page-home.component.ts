@@ -98,12 +98,7 @@ export class PageHomeComponent implements OnInit, OnDestroy {
           shapeProperties: {
             borderRadius: 1,
           },
-        },
-        edges: {
-          arrows: {
-            to: true,
-          },
-        },
+        }
       };
     });
   }
