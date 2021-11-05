@@ -8,12 +8,8 @@
 
 
 
-  <ng-select
-  class="editor-box"
-  (change)="onChange($event)"
-  [items]="itemsNode"
-           [(ngModel)]="selectedNodeSearch"
-  *ngIf="searching" style="position: absolute;
+  <ng-select class="editor-box" (change)="onChange($event)" [items]="itemsNode" [(ngModel)]="selectedNodeSearch"
+    *ngIf="searching" style="position: absolute;
   top: 50%;
   left: 50%;
   width: 192px;
@@ -33,6 +29,13 @@
     <button (click)="showDialog(template2)"><span style="padding: 8px"
         class="glyphicon glyphicon-search"></span></button>-->
   </div>
+  <div style="position: absolute;
+  bottom: 0; padding: 32px;
+  right: 0; cursor: pointer;" >
+    <a  (click)="scrollDown()" class="scroll-down" address="true"></a>
+  </div>
+
+
 
   <div style="
     top: 0;
@@ -60,22 +63,12 @@
       <hr>
       <button (click)="search()" style="width: 100%; border: 0; padding:8px;">Búsqueda</button>
     </div>
-    <!--
-    <button (click)="showDialog(template2)"><span style="padding: 8px"
-        class="glyphicon glyphicon-search"></span></button>-->
+
+
+
   </div>
 
-  <span class="scroll-btn">
-    <a (click)="scrollDown()">
-      <span class="mouse" style="
-      background-color: white;
-      border-radius: 64px;">
-        <span>
-        </span>
-      </span>
-    </a>
 
-  </span>
 
   <div *tuiSidebar="open; direction: 'right'">
     <tui-accordion [rounded]="false">
@@ -141,3 +134,9 @@
 
 <app-lab-about pageScroll id="destination_about"></app-lab-about>
 <app-lab-latest></app-lab-latest>
+
+<!--
+<a (click)="scrollDown()" href="#" class="float">
+  <a href="#" class="scroll-down" address="true"></a>
+</a>
+-->
