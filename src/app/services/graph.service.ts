@@ -25,4 +25,8 @@ export class GraphService {
     return this.http.get<any[]>('https://eco-datos.herokuapp.com/v1/graph/latest');
   }
 
+  getProjects(): Observable<any[]> {
+    return this.http.get<any[]>('https://eco-datos.herokuapp.com/v1/graph/projects');
+  }
+
 }

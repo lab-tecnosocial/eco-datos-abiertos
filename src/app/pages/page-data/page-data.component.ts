@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { GraphService } from 'src/app/services/graph.service';
 
 @Component({
   selector: 'app-page-data',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageDataComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
+  readonly projects$ = new Observable<any[]>();
+  constructor(private graphService: GraphService) {
+    this.projects$ = this.graphService.getProjects();
   }
+
+  ngOnInit(): void {}
 
 }

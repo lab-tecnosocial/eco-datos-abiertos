@@ -1,3 +1,14 @@
-<div style="height: 500px">
+<div style="min-height: 500px; padding: 64px;">
+  <span class="tui-text_h3">Fuentes</span>
+  <div *ngFor="let p of projects$ | async">
+    <h3>{{p.name}}</h3>
+    <ul *ngFor="let link of p.url" class="tui-list tui-list_large">
+      <li class="tui-list__item">
+        <a  tuiLink href="{{link}}" target="_blank">{{link}}</a>
+      </li>
+    </ul>
+
+  </div>
+
 
 </div>

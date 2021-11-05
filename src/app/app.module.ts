@@ -67,6 +67,7 @@ import { AboutCardComponent } from './components/tag/about-card/about-card.compo
 import { ActorFormComponent } from './components/tag/forms/actor-form/actor-form.component';
 import { ProjectFormComponent } from './components/tag/forms/project-form/project-form.component';
 import { TechnologyFormComponent } from './components/tag/forms/technology-form/technology-form.component';
+import { PageDataComponent } from './pages/page-data/page-data.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,6 +79,7 @@ import { TechnologyFormComponent } from './components/tag/forms/technology-form/
     AboutCardComponent,
     PageAboutNodeComponent,
     PageHomeComponent,
+    PageDataComponent,
     PageContributeComponent,
     NodifyPipe,
     ActorFormComponent,
