@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { GraphContributionService } from 'src/app/services/graph-contribution.service';
 
 @Component({
@@ -8,20 +8,21 @@ import { GraphContributionService } from 'src/app/services/graph-contribution.se
   styleUrls: ['./project-form.component.css'],
 })
 export class ProjectFormComponent implements OnInit {
+
+
   tipo = ['Repositorio', 'Visualizacion', 'Analisis'];
 
-  testValue = new FormControl(this.tipo[0]);
+  projectForm = new FormGroup({
+    nombre: new FormControl(''),
+    tipo: new FormControl(this.tipo[0]),
+    url: new FormControl('')
+  });
 
   constructor(private graphService: GraphContributionService) {}
 
   ngOnInit() {}
 
-  guardar() {
-    this.graphService.data = {
-      labels: ['Proyecto'],
-      properties: {
-        type: this.testValue.value,
-      },
-    };
+  onFormSubmit(): void {
+    this.graphService.setNode(this.projectForm.getRawValue());
   }
 }

@@ -5,12 +5,12 @@
         <tui-island class="contribute-card">
             <p class="tui-island__category">Nodo</p>
             <h3 class="tui-island__title">Origen</h3>
-            <ng-select placeholder="Escoja un Nodo" [(ngModel)]="selectedFrom" name="something">
-                <ng-option *ngFor="let node of nodes$ | async" [value]="node">{{node.properties.name}}
+            <ng-select (change)="onChange($event)" placeholder="Escoja un Nodo" [(ngModel)]="selectedFrom" name="something">
+                <ng-option  *ngFor="let node of nodes$ | async" [value]="node">{{node.properties.name}}
                 </ng-option>
 
                 <ng-template ng-footer-tmp>
-                    <div class="button-new" (click)="showDialogNode(template)">Crear Nuevo</div>
+                    <div class="button-new" (click)="showDialogNode(template,'FROM')">Crear Nuevo</div>
                 </ng-template>
             </ng-select>
             <div fxLayout="row" fxLayoutAlign="start center" *ngIf="selectedFrom">
@@ -37,12 +37,12 @@
         <tui-island class="contribute-card">
             <p class="tui-island__category">Nodo</p>
             <h3 class="tui-island__title">Destino</h3>
-            <ng-select placeholder="Escoja un Nodo" [(ngModel)]="selectedTo" name="something">
+            <ng-select  (change)="onChange($event)"  placeholder="Escoja un Nodo" [(ngModel)]="selectedTo" name="something2">
                 <ng-option *ngFor="let node of nodes$ | async" [value]="node">{{node.properties.name}}
                 </ng-option>
 
                 <ng-template ng-footer-tmp>
-                    <div class="button-new" (click)="showDialogNode(template)">Crear Nuevo</div>
+                    <div class="button-new" (click)="showDialogNode(template,'TO')">Crear Nuevo</div>
                 </ng-template>
             </ng-select>
             <div fxLayout="row" fxLayoutAlign="start center" *ngIf="selectedTo">
@@ -93,10 +93,7 @@
                     </p>
                 </span>
             </tui-scrollbar>
-        <div fxLayout="row" fxLayoutAlign="center stretch" fxLayoutGap="8px">
-            <button tuiButton type="button" size="m" (click)="observer.complete()">Aceptar</button>
-            <button tuiButton type="button" size="m" (click)="observer.complete()">Cancelar</button>
-        </div>
+
 
     </div>
 </ng-template>

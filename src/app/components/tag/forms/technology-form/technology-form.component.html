@@ -1,14 +1,16 @@
-<div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="16px"> 
-<tui-input class="b-form">
+<form [formGroup]="techForm" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="16px"  (ngSubmit)="onFormSubmit()">
+<tui-input class="b-form"  formControlName="nombre">
   Nombre de la Tecnología
 </tui-input>
-<tui-select tuiTextfieldSize="s" [formControl]="testValue">
+<tui-select tuiTextfieldSize="s"  formControlName="rol">
   Tipo Proyecto
   <tui-data-list-wrapper *tuiDataList [items]="rol"></tui-data-list-wrapper>
 </tui-select>
-<tui-input class="b-form">
+<tui-input class="b-form"  formControlName="url">
   URL
 </tui-input>
+<div fxLayout="row" fxLayoutAlign="center stretch" fxLayoutGap="8px">
+  <button tuiButton type="submit" size="m" >Aceptar</button>
+  <button tuiButton type="button" size="m" >Cancelar</button>
 </div>
-
-<button tuiButton type="button" size="m" (click)="guardar()">Crear</button>
+</form>

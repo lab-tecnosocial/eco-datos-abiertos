@@ -1,29 +1,31 @@
-<div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="16px">
-  <tui-input class="b-form">
+<form (ngSubmit)="onFormSubmit()" [formGroup]="actorForm" fxLayout="column" fxLayoutAlign="start stretch"
+  fxLayoutGap="16px">
+  <tui-input  tuiTextfieldSize="s" formControlName="nombre">
     Nombre del Actor
   </tui-input>
   <p class="b-form">
-    <tui-select tuiTextfieldSize="s" [formControl]="testValue">
+    <tui-select tuiTextfieldSize="s" formControlName="tipo">
       Tipo Nodo
       <tui-data-list-wrapper *tuiDataList [items]="items"></tui-data-list-wrapper>
     </tui-select>
   </p>
-  <tui-select  tuiTextfieldSize="s" [formControl]="testValue2">
+  <tui-select tuiTextfieldSize="s" formControlName="sector">
     Sector
     <tui-data-list-wrapper *tuiDataList [items]="sector"></tui-data-list-wrapper>
   </tui-select>
-  <tui-select tuiTextfieldSize="s" [formControl]="testValue3">
+  <tui-select tuiTextfieldSize="s" formControlName="grupo">
     Grupo
     <tui-data-list-wrapper *tuiDataList [items]="grupo"></tui-data-list-wrapper>
   </tui-select>
-  <tui-select tuiTextfieldSize="s" [formControl]="testValue4">
+  <tui-select tuiTextfieldSize="s" formControlName="rol">
     Rol
     <tui-data-list-wrapper *tuiDataList [items]="rol"></tui-data-list-wrapper>
   </tui-select>
-  <tui-input class="b-form">
+  <tui-input class="b-form" formControlName="url">
     URL
   </tui-input>
-</div>
-
-
-<button tuiButton type="button" size="m" (click)="guardar()">Crear</button>
+  <div fxLayout="row" fxLayoutAlign="center stretch" fxLayoutGap="8px">
+    <button tuiButton type="submit" size="m" >Aceptar</button>
+    <button tuiButton type="button" size="m" >Cancelar</button>
+  </div>
+</form>

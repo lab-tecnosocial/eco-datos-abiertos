@@ -76,31 +76,47 @@ export class PageHomeComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.ngxLoader.start();
-    this.graphService.getGraph().subscribe((data) => {
+    if (!sessionStorage.getItem('graph')) {
+      this.graphService.getGraph().subscribe((data) => {
+        this.nodes = new DataSet<Node>(data.nodes);
+        this.edges = new DataSet<Edge>(data.edges);
+        this.initializeGraph();
+
+        const graph = { nodes: data.nodes, edges: data.edges };
+        sessionStorage.setItem('graph', JSON.stringify(graph));
+        this.setSelect(data);
+      });
+    } else {
+      const data = JSON.parse(sessionStorage.getItem('graph'));
       this.nodes = new DataSet<Node>(data.nodes);
       this.edges = new DataSet<Edge>(data.edges);
-      this.visNetworkData = { nodes: this.nodes, edges: this.edges };
+      this.initializeGraph();
+    }
+  }
 
-      this.viewDefault = new DataView(this.nodes);
-      this.itemsNode = data.nodes.map((n) => {
-        return {
-          value: n.id,
-          label: n.label,
-          properties: n.properties,
-        };
-      });
-
-      this.visNetworkOptions = {
-        nodes: {
-          shape: 'dot',
-          mass: 1,
-          size: 16,
-          shapeProperties: {
-            borderRadius: 1,
-          },
-        }
+  setSelect(data: any) {
+    this.itemsNode = data.nodes.map((n) => {
+      return {
+        value: n.id,
+        label: n.label,
+        properties: n.properties,
       };
     });
+  }
+
+  initializeGraph() {
+    this.visNetworkData = { nodes: this.nodes, edges: this.edges };
+    this.viewDefault = new DataView(this.nodes);
+    this.visNetworkOptions = {
+      nodes: {
+        shape: 'dot',
+        mass: 1,
+        size: 16,
+        shapeProperties: {
+          borderRadius: 1,
+        },
+      },
+    };
   }
 
   public zoomIn(): void {

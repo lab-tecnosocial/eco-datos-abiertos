@@ -17,12 +17,10 @@ import { GraphContributionService } from 'src/app/services/graph-contribution.se
   styleUrls: ['./page-contribute.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PageContributeComponent implements OnInit{
+export class PageContributeComponent implements OnInit {
   readonly testForm = new FormGroup({
     selected: new FormControl('actor'),
   });
-
-  
 
   readonly relations$ = new Observable<string[]>();
   readonly nodes$ = new Observable<string[]>();
@@ -39,15 +37,10 @@ export class PageContributeComponent implements OnInit{
     this.relations$ = this.graphService.getRelations();
     this.nodes$ = this.graphService.getNodes();
   }
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   submitContribution() {
-    console.log(this.testForm.value);
-    console.log(this.selectedFrom);
-    console.log(this.selectedRelation);
-    console.log(this.selectedTo);
-    console.log(this.graphServiceContribution.data);
+    console.log(this.graphServiceContribution.getNodes());
     this.showDialog();
   }
 
@@ -57,7 +50,12 @@ export class PageContributeComponent implements OnInit{
       .subscribe();
   }
 
-  showDialogNode(content: PolymorpheusContent<TuiDialogContext>) {
+  showDialogNode(content: PolymorpheusContent<TuiDialogContext>, type: string) {
+    this.graphServiceContribution.type = type;
     this.dialogService.open(content).subscribe();
+  }
+
+  onChange(data:Event){
+    console.log(data)
   }
 }

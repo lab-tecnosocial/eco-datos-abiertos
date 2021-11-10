@@ -1,14 +1,16 @@
-<div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="16px"> 
-<tui-input class="b-form">
-  Nombre del Proyecto
-</tui-input>
-<tui-select tuiTextfieldSize="s" [formControl]="testValue">
-  Tipo Proyecto
-  <tui-data-list-wrapper *tuiDataList [items]="tipo"></tui-data-list-wrapper>
-</tui-select>
-<tui-input class="b-form">
-  URL
-</tui-input>
-</div>
-
-<button tuiButton type="button" size="m" (click)="guardar()">Crear</button>
+<form [formGroup]="projectForm" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="16px"  (ngSubmit)="onFormSubmit()">
+  <tui-input class="b-form" formControlName="nombre">
+    Nombre del Proyecto
+  </tui-input>
+  <tui-select tuiTextfieldSize="s" formControlName="tipo">
+    Tipo Proyecto
+    <tui-data-list-wrapper *tuiDataList [items]="tipo"></tui-data-list-wrapper>
+  </tui-select>
+  <tui-input class="b-form" formControlName="url">
+    URL
+  </tui-input>
+  <div fxLayout="row" fxLayoutAlign="center stretch" fxLayoutGap="8px">
+    <button tuiButton type="submit" size="m">Aceptar</button>
+    <button tuiButton type="button" size="m">Cancelar</button>
+  </div>
+</form>

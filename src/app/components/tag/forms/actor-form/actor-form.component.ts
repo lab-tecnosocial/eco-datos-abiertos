@@ -1,7 +1,7 @@
-import { Component, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, Inject, Input, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TuiDialogService } from '@taiga-ui/core';
 import { GraphContributionService } from 'src/app/services/graph-contribution.service';
-import { EventEmitter } from 'stream';
 
 @Component({
   selector: 'app-actor-form',
@@ -9,7 +9,11 @@ import { EventEmitter } from 'stream';
   styleUrls: ['./actor-form.component.css'],
 })
 export class ActorFormComponent implements OnInit {
-  constructor(private graphService: GraphContributionService) {}
+
+  constructor(
+    private graphService: GraphContributionService,
+    @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
+  ) {}
 
   items = ['Individuo', 'Organización'];
   sector = [
@@ -28,22 +32,18 @@ export class ActorFormComponent implements OnInit {
   ];
   rol = ['Productores', 'Intermediarios'];
 
-  testValue = new FormControl(this.items[0]);
-  testValue2 = new FormControl(this.sector[0]);
-  testValue3 = new FormControl(this.grupo[0]);
-  testValue4 = new FormControl(this.rol[0]);
+  actorForm = new FormGroup({
+    nombre: new FormControl('',Validators.required),
+    tipo: new FormControl(this.items[0]),
+    sector: new FormControl(this.sector[0]),
+    grupo: new FormControl(this.grupo[0]),
+    rol: new FormControl(this.rol[0]),
+    url: new FormControl('',Validators.required)
+  });
+
+  onFormSubmit(): void {
+    this.graphService.setNode(this.actorForm.getRawValue());
+  }
 
   ngOnInit() {}
-
-  guardar() {
-    this.graphService.data = {
-      labels: ['Actor'],
-      properties: {
-        type: this.testValue.value,
-        sector: this.testValue2.value,
-        group: this.testValue3.value,
-        role: this.testValue4.value,
-      },
-    };
-  }
 }
