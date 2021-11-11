@@ -5,8 +5,8 @@
         <tui-island class="contribute-card">
             <p class="tui-island__category">Nodo</p>
             <h3 class="tui-island__title">Origen</h3>
-            <ng-select (change)="onChange($event)" placeholder="Escoja un Nodo" [(ngModel)]="selectedFrom" name="something">
-                <ng-option  *ngFor="let node of nodes$ | async" [value]="node">{{node.properties.name}}
+            <ng-select (change)="onChange($event,'FROM')" placeholder="Escoja un Nodo" [(ngModel)]="selectedFrom" name="something">
+                <ng-option  *ngFor="let node of nodes$ | async" [value]="node.properties">{{node.properties.name}}
                 </ng-option>
 
                 <ng-template ng-footer-tmp>
@@ -37,8 +37,8 @@
         <tui-island class="contribute-card">
             <p class="tui-island__category">Nodo</p>
             <h3 class="tui-island__title">Destino</h3>
-            <ng-select  (change)="onChange($event)"  placeholder="Escoja un Nodo" [(ngModel)]="selectedTo" name="something2">
-                <ng-option *ngFor="let node of nodes$ | async" [value]="node">{{node.properties.name}}
+            <ng-select  (change)="onChange($event,'TO')"  placeholder="Escoja un Nodo" [(ngModel)]="selectedTo" name="something2">
+                <ng-option *ngFor="let node of nodes$ | async" [value]="node.properties">{{node.properties.name}}
                 </ng-option>
 
                 <ng-template ng-footer-tmp>

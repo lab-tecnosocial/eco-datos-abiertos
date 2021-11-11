@@ -55,7 +55,9 @@ export class PageContributeComponent implements OnInit {
     this.dialogService.open(content).subscribe();
   }
 
-  onChange(data:Event){
+  onChange(data:Event,type:string){
+    this.graphServiceContribution.type=type;
+    this.graphServiceContribution.setNode(data);
     console.log(data)
   }
 }
