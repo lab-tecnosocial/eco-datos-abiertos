@@ -1,8 +1,8 @@
 <form [formGroup]="projectForm" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="16px"  (ngSubmit)="onFormSubmit()">
-  <tui-input class="b-form" formControlName="nombre">
+  <tui-input class="b-form" formControlName="name">
     Nombre del Proyecto
   </tui-input>
-  <tui-select tuiTextfieldSize="s" formControlName="tipo">
+  <tui-select tuiTextfieldSize="s" formControlName="type">
     Tipo Proyecto
     <tui-data-list-wrapper *tuiDataList [items]="tipo"></tui-data-list-wrapper>
   </tui-select>

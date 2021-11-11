@@ -46,7 +46,9 @@ export class ActorFormComponent implements OnInit {
   });
 
   onFormSubmit(): void {
-    this.graphService.setNode(this.actorForm.getRawValue());
+    let data = {properties: this.actorForm.getRawValue()};
+    data['labels']=['Actor'];
+    this.graphService.setNode(data);
     this.close.complete();
   }
 

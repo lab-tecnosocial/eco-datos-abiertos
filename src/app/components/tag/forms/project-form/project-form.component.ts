@@ -17,8 +17,8 @@ export class ProjectFormComponent implements OnInit {
   tipo = ['Repositorio', 'Visualizacion', 'Analisis'];
 
   projectForm = new FormGroup({
-    nombre: new FormControl(''),
-    tipo: new FormControl(this.tipo[0]),
+    name: new FormControl(''),
+    type: new FormControl(this.tipo[0]),
     url: new FormControl('')
   });
 
@@ -27,7 +27,9 @@ export class ProjectFormComponent implements OnInit {
   ngOnInit() {}
 
   onFormSubmit(): void {
-    this.graphService.setNode(this.projectForm.getRawValue());
+    let data = {properties: this.projectForm.getRawValue()};
+    data['labels']=['Proyecto'];
+    this.graphService.setNode(data);
     this.close.complete();
   }
 

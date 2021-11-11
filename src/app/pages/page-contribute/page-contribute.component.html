@@ -1,99 +1,115 @@
 <div fxLayout="column" fxLayoutAlign="center stretch">
-    <div style="padding: 32px; min-height: 500px;" fxLayout.gt-md="row" fxLayout.lt-md="column"
-        fxLayoutAlign="center center" fxLayoutGap="16px">
 
-        <tui-island class="contribute-card">
-            <p class="tui-island__category">Nodo</p>
-            <h3 class="tui-island__title">Origen</h3>
-            <ng-select (change)="onChange($event,'FROM')" placeholder="Escoja un Nodo" [(ngModel)]="selectedFrom" name="something">
-                <ng-option  *ngFor="let node of nodes$ | async" [value]="node">{{node.properties.name}}
-                </ng-option>
+  <div *ngIf="!isLoggedin" fxLayout="column" fxLayoutAlign="start center">
+    <p> Para contribuir es necesario que inicies sesión:</p>
+    <button  tuiButton type="button" appearance="outline" (click)="loginWithGoogle()">
+      <tui-svg src="assets/google_logo.svg"></tui-svg>
+      Google </button>
+    <img *ngIf="isLoggedin" [src]="user$.photoUrl ">
+  </div>
 
-                <ng-template ng-footer-tmp>
-                    <div class="button-new" (click)="showDialogNode(template,'FROM')">Crear Nuevo</div>
-                </ng-template>
-            </ng-select>
-            <div fxLayout="row" fxLayoutAlign="start center" *ngIf="selectedFrom">
-                <p style="padding: 4px;">Tags:</p>
-                <tui-tag *ngFor="let tag of selectedFrom.labels" class="tag" [hoverable]="true" [value]="tag"></tui-tag>
-            </div>
+  <div *ngIf="isLoggedin" fxLayout="column" fxLayoutAlign="start center">
+    <button tuiButton type="button"  (click)="logOut()"> Salir </button>
+  </div>
 
-            <tui-svg *ngIf="selectedFrom" tuiColor="#000" class="icon block2" src="assets/check.svg"></tui-svg>
-        </tui-island>
-        <tui-svg fxHide.lt-md class="icon" src="tuiIconArrowRightLarge"></tui-svg>
-        <tui-svg fxHide.gt-md fxHide.md class="icon" src="tuiIconArrowDownLarge"></tui-svg>
-        <tui-island class="contribute-card">
-            <p class="tui-island__category">Arista</p>
-            <h3 class="tui-island__title">Relación</h3>
-            <ng-select placeholder="Escoja una Arista" [(ngModel)]="selectedRelation" name="something">
-                <ng-option *ngFor="let edge of relations$ | async" [value]="edge">{{edge}}
-                </ng-option>
-            </ng-select>
-            <tui-svg *ngIf="selectedRelation" style="fill: red;" class="icon block2" src="assets/check.svg">
-            </tui-svg>
-        </tui-island>
-        <tui-svg fxHide.lt-md class="icon" src="tuiIconArrowRightLarge"></tui-svg>
-        <tui-svg fxHide.gt-md fxHide.md class="icon" src="tuiIconArrowDownLarge"></tui-svg>
-        <tui-island class="contribute-card">
-            <p class="tui-island__category">Nodo</p>
-            <h3 class="tui-island__title">Destino</h3>
-            <ng-select  (change)="onChange($event,'TO')"  placeholder="Escoja un Nodo" [(ngModel)]="selectedTo" name="something2">
-                <ng-option *ngFor="let node of nodes$ | async" [value]="node">{{node.properties.name}}
-                </ng-option>
 
-                <ng-template ng-footer-tmp>
-                    <div class="button-new" (click)="showDialogNode(template,'TO')">Crear Nuevo</div>
-                </ng-template>
-            </ng-select>
-            <div fxLayout="row" fxLayoutAlign="start center" *ngIf="selectedTo">
-                <p style="padding: 4px;">Tags:</p>
-                <tui-tag *ngFor="let tag of selectedTo.labels" class="tag" [hoverable]="true" [value]="tag"></tui-tag>
-            </div>
-            <tui-svg *ngIf="selectedTo" tuiColor="#000" class="icon block2" src="assets/check.svg">
-            </tui-svg>
-        </tui-island>
+  <div style="padding: 32px; min-height: 500px;" fxLayout.gt-md="row" fxLayout.lt-md="column"
+    fxLayoutAlign="center center" fxLayoutGap="16px">
 
-    </div>
-    <button tuiButton type="button" style="max-width: 192px; width: 50%;
+    <tui-island class="contribute-card">
+      <p class="tui-island__category">Nodo</p>
+      <h3 class="tui-island__title">Origen</h3>
+      <ng-select [(ngModel)]="nodeFrom" (change)="onChange($event,'FROM')"
+        [placeholder]="(selectedFrom())?selectedFrom().properties.name:'Escoja un Nodo'" name="something">
+        <ng-option *ngFor="let node of nodes$ | async" [value]="node">{{node.properties.name}}
+        </ng-option>
+
+        <ng-template ng-footer-tmp>
+          <div class="button-new" (click)="showDialogNode(template,'FROM')">Crear Nuevo</div>
+        </ng-template>
+      </ng-select>
+      <div fxLayout="row" fxLayoutAlign="start center" *ngIf="selectedFrom()">
+        <p style="padding: 4px;">Tags:</p>
+        <tui-tag *ngFor="let tag of selectedFrom().labels" class="tag" [hoverable]="true" [value]="tag"></tui-tag>
+      </div>
+
+      <tui-svg *ngIf="selectedFrom()" tuiColor="#000" class="icon block2" src="assets/check.svg"></tui-svg>
+    </tui-island>
+    <tui-svg fxHide.lt-md class="icon" src="tuiIconArrowRightLarge"></tui-svg>
+    <tui-svg fxHide.gt-md fxHide.md class="icon" src="tuiIconArrowDownLarge"></tui-svg>
+    <tui-island class="contribute-card">
+      <p class="tui-island__category">Arista</p>
+      <h3 class="tui-island__title">Relación</h3>
+      <ng-select (change)="onRelationChange($event)" placeholder="Escoja una Arista" [(ngModel)]="selectedRelation"
+        name="something">
+        <ng-option *ngFor="let edge of relations$ | async" [value]="edge">{{edge}}
+        </ng-option>
+      </ng-select>
+      <tui-svg *ngIf="selectedRelation" style="fill: red;" class="icon block2" src="assets/check.svg">
+      </tui-svg>
+    </tui-island>
+    <tui-svg fxHide.lt-md class="icon" src="tuiIconArrowRightLarge"></tui-svg>
+    <tui-svg fxHide.gt-md fxHide.md class="icon" src="tuiIconArrowDownLarge"></tui-svg>
+    <tui-island class="contribute-card">
+      <p class="tui-island__category">Nodo</p>
+      <h3 class="tui-island__title">Destino</h3>
+      <ng-select (change)="onChange($event,'TO')"
+        [placeholder]="(selectedTo())?selectedTo().properties.name:'Escoja un Nodo'" [(ngModel)]="nodeTo"
+        name="something2">
+        <ng-option *ngFor="let node of nodes$ | async" [value]="node">{{node.properties.name}}
+        </ng-option>
+
+        <ng-template ng-footer-tmp>
+          <div class="button-new" (click)="showDialogNode(template,'TO')">Crear Nuevo</div>
+        </ng-template>
+      </ng-select>
+      <div fxLayout="row" fxLayoutAlign="start center" *ngIf="selectedTo()">
+        <p style="padding: 4px;">Tags:</p>
+        <tui-tag *ngFor="let tag of selectedTo().labels" class="tag" [hoverable]="true" [value]="tag"></tui-tag>
+      </div>
+      <tui-svg *ngIf="selectedTo()" tuiColor="#000" class="icon block2" src="assets/check.svg">
+      </tui-svg>
+    </tui-island>
+
+  </div>
+  <button tuiButton type="button" style="max-width: 192px; width: 50%;
     margin: 0 auto;" (click)="submitContribution()">
-        Subir
-    </button>
-    <div style="height: 32px;"></div>
+    Subir
+  </button>
+  <div style="height: 32px;"></div>
 
 </div>
 
 <ng-template #template let-observer>
-    <div fxLayout="column" fxLayoutAlign="center stretch">
-        <form class="group" [formGroup]="testForm">
-            <p class="text">Tipo de Nodo:<tui-money [value]="data"></tui-money>
-            <div tuiGroup class="group" [collapsed]="true">
-                <tui-radio-block contentAlign="right" formControlName="selected" item="actor" size="l">
-                    Actor
-                </tui-radio-block>
-                <tui-radio-block contentAlign="right" formControlName="selected" item="proyecto" size="l">
-                    Proyecto
-                </tui-radio-block>
-                <tui-radio-block contentAlign="right" formControlName="selected" item="tecnologia" size="l">
-                    Tecnología
-                </tui-radio-block>
-            </div>
-        </form>
-        <p class="text">Atributos:<tui-money [value]="data"></tui-money>
+  <div fxLayout="column" fxLayoutAlign="center stretch">
+    <form class="group" [formGroup]="testForm">
+      <p class="text">Tipo de Nodo:<tui-money [value]="data"></tui-money>
+      <div tuiGroup class="group" [collapsed]="true">
+        <tui-radio-block contentAlign="right" formControlName="selected" item="actor" size="l">
+          Actor
+        </tui-radio-block>
+        <tui-radio-block contentAlign="right" formControlName="selected" item="proyecto" size="l">
+          Proyecto
+        </tui-radio-block>
+        <tui-radio-block contentAlign="right" formControlName="selected" item="tecnologia" size="l">
+          Tecnología
+        </tui-radio-block>
+      </div>
+    </form>
+    <p class="text">Atributos:<tui-money [value]="data"></tui-money>
 
-            <tui-scrollbar class="box">
-                <span [ngSwitch]="testForm.value.selected">
-                    <p *ngSwitchCase="'actor'">
-                        <app-actor-form [close]="observer"></app-actor-form>
-                    </p>
-                    <p *ngSwitchCase="'proyecto'">
-                        <app-project-form [close]="observer"></app-project-form>
-                    </p>
-                    <p *ngSwitchDefault>
-                        <app-technology-form [close]="observer"></app-technology-form>
-                    </p>
-                </span>
-            </tui-scrollbar>
-
-
-    </div>
+      <tui-scrollbar class="box">
+        <span [ngSwitch]="testForm.value.selected">
+          <p *ngSwitchCase="'actor'">
+            <app-actor-form [close]="observer"></app-actor-form>
+          </p>
+          <p *ngSwitchCase="'proyecto'">
+            <app-project-form [close]="observer"></app-project-form>
+          </p>
+          <p *ngSwitchDefault>
+            <app-technology-form [close]="observer"></app-technology-form>
+          </p>
+        </span>
+      </tui-scrollbar>
+  </div>
 </ng-template>

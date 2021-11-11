@@ -15,11 +15,11 @@ export class TechnologyFormComponent implements OnInit {
   close: Observer<any>;
 
 
-  rol = ['Abierta', 'No Abierta'];
+  type = ['Abierta', 'No Abierta'];
 
   techForm = new FormGroup({
     name: new FormControl(''),
-    type: new FormControl(this.rol[0]),
+    type: new FormControl(this.type[0]),
     url: new FormControl(''),
   });
 
@@ -28,7 +28,9 @@ export class TechnologyFormComponent implements OnInit {
   ngOnInit() {}
 
   onFormSubmit(): void {
-    this.graphService.setNode(this.techForm.getRawValue());
+    let data = {properties: this.techForm.getRawValue()};
+    data['labels']=['Tecnologia'];
+    this.graphService.setNode(data);
     this.close.complete();
   }
 

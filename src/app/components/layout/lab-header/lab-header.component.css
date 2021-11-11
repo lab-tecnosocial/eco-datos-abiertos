@@ -1,51 +1,59 @@
-.button-header{
-    color: white;
+.button-header {
+  color: white;
 }
 
 .button-58 {
-    align-items: center;
-    background-color: #05B41C;
-    border: 2px solid #05B41C;
-    box-sizing: border-box;
-    color: #fff;
-    cursor: pointer;
-    display: inline-flex;
-    fill: #000;
-    font-family: Inter,sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    height: 48px;
-    justify-content: center;
-    letter-spacing: -.8px;
-    line-height: 24px;
-    min-width: 140px;
-    outline: 0;
-    padding: 0 17px;
-    text-align: center;
-    text-decoration: none;
-    transition: all .3s;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
+  align-items: center;
+  background-color: #05b41c;
+  border: 2px solid #05b41c;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  fill: #000;
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  height: 48px;
+  justify-content: center;
+  letter-spacing: -0.8px;
+  line-height: 24px;
+  min-width: 140px;
+  outline: 0;
+  padding: 0 17px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-58:focus {
+}
+
+.button-58:hover {
+  background-color: #2fc974;
+  border-color: #2fc974;
+  fill: #05b41c;
+}
+
+.button-58:active {
+  background-color: #2fc974;
+  border-color: #2fc974;
+  fill: #06f;
+}
+
+@media (min-width: 768px) {
+  .button-58 {
+    min-width: 170px;
   }
-  
-  .button-58:focus {
-  }
-  
-  .button-58:hover {
-    background-color: #2FC974;
-    border-color: #2FC974;
-    fill: #05B41C;
-  }
-  
-  .button-58:active {
-    background-color: #2FC974;
-    border-color: #2FC974;
-    fill: #06f;
-  }
-  
-  @media (min-width: 768px) {
-    .button-58 {
-      min-width: 170px;
-    }
-  }
+}
+
+.avatar-image {
+  height: 75% !important;
+  margin-left: auto;
+  background-color: white;
+  border-radius: 128px;
+  margin-right: 8px !important;
+}

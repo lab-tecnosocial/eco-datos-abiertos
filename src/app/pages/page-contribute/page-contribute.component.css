@@ -43,22 +43,22 @@
     touch-action: manipulation;
     border-radius: 8px;
   }
-  
+
   .button-new:focus {
   }
-  
+
   .button-new:hover {
     background-color: #2FC974;
     border-color: #2FC974;
     fill: #05B41C;
   }
-  
+
   .button-new:active {
     background-color: #2FC974;
     border-color: #2FC974;
     fill: #06f;
   }
-  
+
   @media (min-width: 768px) {
     .button-new {
       min-width: 64px;
@@ -78,4 +78,5 @@
   padding-top:5px;
   padding-bottom:10px
 }
+
 

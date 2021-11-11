@@ -68,6 +68,11 @@ import { ActorFormComponent } from './components/tag/forms/actor-form/actor-form
 import { ProjectFormComponent } from './components/tag/forms/project-form/project-form.component';
 import { TechnologyFormComponent } from './components/tag/forms/technology-form/technology-form.component';
 import { PageDataComponent } from './pages/page-data/page-data.component';
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider
+} from 'angularx-social-login';
 @NgModule({
   declarations: [
     AppComponent,
@@ -135,8 +140,23 @@ import { PageDataComponent } from './pages/page-data/page-data.component';
     TuiTagModule,
     TuiRadioBlockModule,
     TuiScrollbarModule,
+    SocialLoginModule
   ],
-  providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }],
+  providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '291617403064-jko8k38298frjc4f56ajirtf83ag9jug.apps.googleusercontent.com'
+            )
+          }
+        ]
+      } as SocialAuthServiceConfig,
+    }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

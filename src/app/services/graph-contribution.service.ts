@@ -6,11 +6,20 @@ import { Injectable } from '@angular/core';
 export class GraphContributionService {
   private fromNode: any;
   private toNode: any;
+  private relation: any;
   public type: string;
   constructor() {}
 
-  public getNodes():any{
-    return {from: this.fromNode, to:this.toNode};
+  public getNodes(): any {
+    return { from: this.fromNode, to: this.toNode };
+  }
+
+  public setRelation(rel: any) {
+    this.relation = rel;
+  }
+
+  public getRelation(): any {
+    return this.relation;
   }
 
   public setNode(data: any) {
