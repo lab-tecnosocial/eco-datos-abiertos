@@ -28,6 +28,7 @@ export class PageContributeComponent implements OnInit {
   selectedFrom: any;
   selectedRelation: any;
   selectedTo: any;
+   dialog: Observable<any>;
 
   constructor(
     private graphService: GraphService,
@@ -49,15 +50,20 @@ export class PageContributeComponent implements OnInit {
       .open('Gracias por tu contribución.', { label: 'Finalizado', size: 's' })
       .subscribe();
   }
-
   showDialogNode(content: PolymorpheusContent<TuiDialogContext>, type: string) {
     this.graphServiceContribution.type = type;
-    this.dialogService.open(content).subscribe();
+    this.dialog = this.dialogService.open(content);
+    this.dialog.subscribe();
+
   }
 
-  onChange(data:Event,type:string){
-    this.graphServiceContribution.type=type;
-    this.graphServiceContribution.setNode(data);
-    console.log(data)
+  onChange(data: any, type: string) {
+    if (data) {
+      this.graphServiceContribution.type = type;
+      this.graphServiceContribution.setNode(data.properties);
+      console.log(data);
+    }
   }
+
+
 }

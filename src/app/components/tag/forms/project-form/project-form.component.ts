@@ -1,3 +1,4 @@
+import { Observer } from 'rxjs';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { GraphContributionService } from 'src/app/services/graph-contribution.service';
@@ -8,6 +9,9 @@ import { GraphContributionService } from 'src/app/services/graph-contribution.se
   styleUrls: ['./project-form.component.css'],
 })
 export class ProjectFormComponent implements OnInit {
+
+  @Input('close')
+  close: Observer<any>;
 
 
   tipo = ['Repositorio', 'Visualizacion', 'Analisis'];
@@ -24,5 +28,10 @@ export class ProjectFormComponent implements OnInit {
 
   onFormSubmit(): void {
     this.graphService.setNode(this.projectForm.getRawValue());
+    this.close.complete();
+  }
+
+  closeDialog(){
+    this.close.complete();
   }
 }

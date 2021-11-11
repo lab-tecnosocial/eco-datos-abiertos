@@ -6,7 +6,7 @@
             <p class="tui-island__category">Nodo</p>
             <h3 class="tui-island__title">Origen</h3>
             <ng-select (change)="onChange($event,'FROM')" placeholder="Escoja un Nodo" [(ngModel)]="selectedFrom" name="something">
-                <ng-option  *ngFor="let node of nodes$ | async" [value]="node.properties">{{node.properties.name}}
+                <ng-option  *ngFor="let node of nodes$ | async" [value]="node">{{node.properties.name}}
                 </ng-option>
 
                 <ng-template ng-footer-tmp>
@@ -38,7 +38,7 @@
             <p class="tui-island__category">Nodo</p>
             <h3 class="tui-island__title">Destino</h3>
             <ng-select  (change)="onChange($event,'TO')"  placeholder="Escoja un Nodo" [(ngModel)]="selectedTo" name="something2">
-                <ng-option *ngFor="let node of nodes$ | async" [value]="node.properties">{{node.properties.name}}
+                <ng-option *ngFor="let node of nodes$ | async" [value]="node">{{node.properties.name}}
                 </ng-option>
 
                 <ng-template ng-footer-tmp>
@@ -83,13 +83,13 @@
             <tui-scrollbar class="box">
                 <span [ngSwitch]="testForm.value.selected">
                     <p *ngSwitchCase="'actor'">
-                        <app-actor-form></app-actor-form>
+                        <app-actor-form [close]="observer"></app-actor-form>
                     </p>
                     <p *ngSwitchCase="'proyecto'">
-                        <app-project-form></app-project-form>
+                        <app-project-form [close]="observer"></app-project-form>
                     </p>
                     <p *ngSwitchDefault>
-                        <app-technology-form></app-technology-form>
+                        <app-technology-form [close]="observer"></app-technology-form>
                     </p>
                 </span>
             </tui-scrollbar>

@@ -1,3 +1,4 @@
+import { Observer } from 'rxjs';
 import { GraphContributionService } from './../../../../services/graph-contribution.service';
 
 import { Component, Input, OnInit } from '@angular/core';
@@ -9,11 +10,16 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./technology-form.component.css'],
 })
 export class TechnologyFormComponent implements OnInit {
+
+  @Input('close')
+  close: Observer<any>;
+
+
   rol = ['Abierta', 'No Abierta'];
 
   techForm = new FormGroup({
-    nombre: new FormControl(''),
-    rol: new FormControl(this.rol[0]),
+    name: new FormControl(''),
+    type: new FormControl(this.rol[0]),
     url: new FormControl(''),
   });
 
@@ -23,5 +29,10 @@ export class TechnologyFormComponent implements OnInit {
 
   onFormSubmit(): void {
     this.graphService.setNode(this.techForm.getRawValue());
+    this.close.complete();
+  }
+
+  closeDialog(){
+    this.close.complete();
   }
 }

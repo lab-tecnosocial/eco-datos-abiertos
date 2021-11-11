@@ -1,6 +1,7 @@
 import { Component, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TuiDialogService } from '@taiga-ui/core';
+import { Observer } from 'rxjs';
 import { GraphContributionService } from 'src/app/services/graph-contribution.service';
 
 @Component({
@@ -9,6 +10,9 @@ import { GraphContributionService } from 'src/app/services/graph-contribution.se
   styleUrls: ['./actor-form.component.css'],
 })
 export class ActorFormComponent implements OnInit {
+
+  @Input('close')
+  close: Observer<any>;
 
   constructor(
     private graphService: GraphContributionService,
@@ -33,16 +37,21 @@ export class ActorFormComponent implements OnInit {
   rol = ['Productores', 'Intermediarios'];
 
   actorForm = new FormGroup({
-    nombre: new FormControl('',Validators.required),
-    tipo: new FormControl(this.items[0]),
+    name: new FormControl('',Validators.required),
+    type: new FormControl(this.items[0]),
     sector: new FormControl(this.sector[0]),
-    grupo: new FormControl(this.grupo[0]),
-    rol: new FormControl(this.rol[0]),
+    group: new FormControl(this.grupo[0]),
+    role: new FormControl(this.rol[0]),
     url: new FormControl('',Validators.required)
   });
 
   onFormSubmit(): void {
     this.graphService.setNode(this.actorForm.getRawValue());
+    this.close.complete();
+  }
+
+  closeDialog(){
+    this.close.complete();
   }
 
   ngOnInit() {}
