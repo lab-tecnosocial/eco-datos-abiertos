@@ -45,4 +45,8 @@ export class LabHeaderComponent
     console.log('x');
     this.router.navigateByUrl('/contribuir').then((r) => {});
   }
+
+  logOut(): void {
+    this.socialAuthService.signOut();
+  }
 }

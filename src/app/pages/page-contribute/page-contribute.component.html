@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutAlign="center stretch">
 
-  <div *ngIf="!isLoggedin" fxLayout="column" fxLayoutAlign="start center">
+  <div *ngIf="!isLoggedin" fxLayout="column" fxLayoutAlign="center center" style="min-height: 500px;">
     <p> Para contribuir es necesario que inicies sesión:</p>
     <button  tuiButton type="button" appearance="outline" (click)="loginWithGoogle()">
       <tui-svg src="assets/google_logo.svg"></tui-svg>
@@ -8,12 +8,10 @@
     <img *ngIf="isLoggedin" [src]="user$.photoUrl ">
   </div>
 
-  <div *ngIf="isLoggedin" fxLayout="column" fxLayoutAlign="start center">
-    <button tuiButton type="button"  (click)="logOut()"> Salir </button>
-  </div>
+ 
 
 
-  <div style="padding: 32px; min-height: 500px;" fxLayout.gt-md="row" fxLayout.lt-md="column"
+  <div *ngIf="isLoggedin"  style="padding: 32px; min-height: 500px;" fxLayout.gt-md="row" fxLayout.lt-md="column"
     fxLayoutAlign="center center" fxLayoutGap="16px">
 
     <tui-island class="contribute-card">
@@ -72,7 +70,7 @@
     </tui-island>
 
   </div>
-  <button tuiButton type="button" style="max-width: 192px; width: 50%;
+  <button  *ngIf="isLoggedin"  tuiButton type="button" style="max-width: 192px; width: 50%;
     margin: 0 auto;" (click)="submitContribution()">
     Subir
   </button>

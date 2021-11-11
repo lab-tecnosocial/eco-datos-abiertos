@@ -41,7 +41,6 @@
 .button-58:active {
   background-color: #2fc974;
   border-color: #2fc974;
-  fill: #06f;
 }
 
 @media (min-width: 768px) {
@@ -52,8 +51,55 @@
 
 .avatar-image {
   height: 75% !important;
-  margin-left: auto;
+
   background-color: white;
   border-radius: 128px;
   margin-right: 8px !important;
+}
+
+.right-box{
+  height: 100% !important;
+  margin-left: auto;
+}
+
+
+.button-logout {
+  border: 0;
+  align-items: center;
+  background-color: #535353;
+  border: 2px solid #535353;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  fill: #000;
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  letter-spacing: -0.8px;
+  line-height: 24px;
+  outline: 0;
+  padding: 0 17px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  height: 100% !important;
+}
+
+.button-logout:focus {
+}
+
+.button-logout:hover {
+  background-color: #646464;
+  border-color: #646464;
+  fill: #535353;
+}
+
+.button-logout:active {
+  background-color: #646464;
+  border-color: #646464;
 }

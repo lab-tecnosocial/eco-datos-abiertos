@@ -87,7 +87,5 @@ export class PageContributeComponent implements OnInit {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
-  logOut(): void {
-    this.socialAuthService.signOut();
-  }
+
 }

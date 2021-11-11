@@ -9,7 +9,11 @@
     -->cdv
   </div>
 
-  <img *ngIf="user" class="avatar-image" [src]="user.photoUrl">
+  <div *ngIf="user" fxLayout="row" fxLayoutAlign="end center" class="right-box">
+    <img class="avatar-image" [src]="user.photoUrl">
+    <button class="button-logout " (click)="logOut()"><span class="glyphicon glyphicon-log-out"></span></button>
+  </div>
+
   <button (click)="contribute()" class="button-58" fxHide.lt-sm style="height: 100%; width: 96px;">Contribuir</button>
   <button fxHide.gt-xs tuiIconButton type="button" appearance="flat" icon="tuiIconMoreHorLarge"></button>
 
