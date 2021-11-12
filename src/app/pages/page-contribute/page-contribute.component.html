@@ -2,23 +2,24 @@
 
   <div *ngIf="!isLoggedin" fxLayout="column" fxLayoutAlign="center center" style="min-height: 500px;">
     <p> Para contribuir es necesario que inicies sesión:</p>
-    <button  tuiButton type="button" appearance="outline" (click)="loginWithGoogle()">
+    <button tuiButton type="button" appearance="outline" (click)="loginWithGoogle()">
       <tui-svg src="assets/google_logo.svg"></tui-svg>
-      Google </button>
+      Google
+    </button>
     <img *ngIf="isLoggedin" [src]="user$.photoUrl ">
   </div>
 
- 
 
 
-  <div *ngIf="isLoggedin"  style="padding: 32px; min-height: 500px;" fxLayout.gt-md="row" fxLayout.lt-md="column"
+
+  <div *ngIf="isLoggedin" style="padding: 32px; min-height: 500px;" fxLayout.gt-md="row" fxLayout.lt-md="column"
     fxLayoutAlign="center center" fxLayoutGap="16px">
 
     <tui-island class="contribute-card">
       <p class="tui-island__category">Nodo</p>
       <h3 class="tui-island__title">Origen</h3>
-      <ng-select [(ngModel)]="nodeFrom" (change)="onChange($event,'FROM')"
-        [placeholder]="(selectedFrom())?selectedFrom().properties.name:'Escoja un Nodo'" name="something">
+      <ng-select *ngIf="!customFrom" [(ngModel)]="nodeFrom" (change)="onChange($event,'FROM')"
+        [placeholder]="'Escoja un Nodo'" name="something">
         <ng-option *ngFor="let node of nodes$ | async" [value]="node">{{node.properties.name}}
         </ng-option>
 
@@ -26,6 +27,7 @@
           <div class="button-new" (click)="showDialogNode(template,'FROM')">Crear Nuevo</div>
         </ng-template>
       </ng-select>
+      <button (click)="clearNode('FROM',false)" *ngIf="customFrom">sss</button>
       <div fxLayout="row" fxLayoutAlign="start center" *ngIf="selectedFrom()">
         <p style="padding: 4px;">Tags:</p>
         <tui-tag *ngFor="let tag of selectedFrom().labels" class="tag" [hoverable]="true" [value]="tag"></tui-tag>
@@ -43,6 +45,7 @@
         <ng-option *ngFor="let edge of relations$ | async" [value]="edge">{{edge}}
         </ng-option>
       </ng-select>
+
       <tui-svg *ngIf="selectedRelation" style="fill: red;" class="icon block2" src="assets/check.svg">
       </tui-svg>
     </tui-island>
@@ -51,9 +54,8 @@
     <tui-island class="contribute-card">
       <p class="tui-island__category">Nodo</p>
       <h3 class="tui-island__title">Destino</h3>
-      <ng-select (change)="onChange($event,'TO')"
-        [placeholder]="(selectedTo())?selectedTo().properties.name:'Escoja un Nodo'" [(ngModel)]="nodeTo"
-        name="something2">
+      <ng-select *ngIf="!customTo" (change)="onChange($event,'TO')" [placeholder]="'Escoja un Nodo'"
+        [(ngModel)]="nodeTo" [typeToSearchText]="'x'" name="something2">
         <ng-option *ngFor="let node of nodes$ | async" [value]="node">{{node.properties.name}}
         </ng-option>
 
@@ -61,6 +63,7 @@
           <div class="button-new" (click)="showDialogNode(template,'TO')">Crear Nuevo</div>
         </ng-template>
       </ng-select>
+      <button (click)="clearNode('TO',false)" *ngIf="customTo">sss</button>
       <div fxLayout="row" fxLayoutAlign="start center" *ngIf="selectedTo()">
         <p style="padding: 4px;">Tags:</p>
         <tui-tag *ngFor="let tag of selectedTo().labels" class="tag" [hoverable]="true" [value]="tag"></tui-tag>
@@ -70,7 +73,7 @@
     </tui-island>
 
   </div>
-  <button  *ngIf="isLoggedin"  tuiButton type="button" style="max-width: 192px; width: 50%;
+  <button *ngIf="isLoggedin" tuiButton type="button" style="max-width: 192px; width: 50%;
     margin: 0 auto;" (click)="submitContribution()">
     Subir
   </button>

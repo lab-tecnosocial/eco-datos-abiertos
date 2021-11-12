@@ -116,6 +116,7 @@ export class PageHomeComponent implements OnInit, OnDestroy {
           borderRadius: 1,
         },
       },
+
     };
   }
 

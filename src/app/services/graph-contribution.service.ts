@@ -4,11 +4,19 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class GraphContributionService {
-  private fromNode: any;
-  private toNode: any;
+  public fromNode: any;
+  public toNode: any;
   private relation: any;
   public type: string;
   constructor() {}
+
+  public clear():void{
+    this.fromNode = undefined;
+    this.toNode = undefined;
+    this.relation= undefined;
+  }
+
+
 
   public getNodes(): any {
     return { from: this.fromNode, to: this.toNode };

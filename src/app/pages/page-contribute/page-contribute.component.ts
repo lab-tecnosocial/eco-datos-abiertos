@@ -31,6 +31,8 @@ export class PageContributeComponent implements OnInit {
   nodeTo: any;
   dialog: Observable<any>;
   isLoggedin: boolean;
+  customFrom = false;
+  customTo = false;
 
   constructor(
     private graphService: GraphService,
@@ -41,16 +43,23 @@ export class PageContributeComponent implements OnInit {
     this.relations$ = this.graphService.getRelations();
     this.nodes$ = this.graphService.getNodes();
   }
+
   ngOnInit(): void {
     this.socialAuthService.authState.subscribe((user) => {
       this.user$ = user;
-      this.isLoggedin = (user != null);
+      this.isLoggedin = user != null;
     });
   }
 
   submitContribution() {
     console.log(this.graphServiceContribution.getNodes());
     console.log(this.graphServiceContribution.getRelation());
+    this.selectedRelation = undefined;
+    this.nodeFrom = undefined;
+    this.nodeTo = undefined;
+    this.customFrom = false;
+    this.customTo = false;
+    this.graphServiceContribution.clear();
     this.showDialog();
   }
 
@@ -60,6 +69,7 @@ export class PageContributeComponent implements OnInit {
       .subscribe();
   }
   showDialogNode(content: PolymorpheusContent<TuiDialogContext>, type: string) {
+    this.clearNode(type,true);
     this.graphServiceContribution.type = type;
     this.dialog = this.dialogService.open(content);
     this.dialog.subscribe();
@@ -87,5 +97,19 @@ export class PageContributeComponent implements OnInit {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
+  clearNode(type: string,custom:boolean): void {
+    switch (type) {
+      case 'FROM':
+        this.customFrom = custom;
+        this.graphServiceContribution.fromNode = undefined;
+        this.nodeFrom = undefined;
+        break;
 
+      default:
+        this.customTo = custom;
+        this.graphServiceContribution.toNode = undefined;
+        this.nodeTo = undefined;
+        break;
+    }
+  }
 }
