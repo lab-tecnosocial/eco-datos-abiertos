@@ -26,6 +26,14 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
   styleUrls: ['./page-home.component.css'],
 })
 export class PageHomeComponent implements OnInit, OnDestroy {
+
+  public constructor(
+    private visNetworkService: VisNetworkService,
+    private scrollToService: ScrollToService,
+    private graphService: GraphService,
+    private ngxLoader: NgxUiLoaderService,
+    @Inject(TuiDialogService) private readonly dialogService: TuiDialogService
+  ) {}
   title = 'vis';
   scaleFactor = 0.2;
   public visNetwork = 'networkId1';
@@ -42,18 +50,22 @@ export class PageHomeComponent implements OnInit, OnDestroy {
 
   public view: DataView<Node>;
   public viewDefault: DataView<Node>;
-
-  public constructor(
-    private visNetworkService: VisNetworkService,
-    private scrollToService: ScrollToService,
-    private graphService: GraphService,
-    private ngxLoader: NgxUiLoaderService,
-    @Inject(TuiDialogService) private readonly dialogService: TuiDialogService
-  ) {}
+  selectedNodeSearch = null;
+  itemsNode = null;
+  showVis = true;
 
   public networkInitialized(): void {
     this.ngxLoader.stop();
     this.visNetworkService.on(this.visNetwork, 'click');
+    this.visNetworkService.release.subscribe((data) => {
+
+    });
+
+    this.visNetworkService.once(this.visNetwork, 'stabilizationIterationsDone');
+    this.visNetworkService.stabilizationIterationsDone.subscribe(d => {
+      this.showVis=false;
+    })
+
     this.visNetworkService.click.subscribe((eventData: any[]) => {
       this.toggleSearch();
       const d = eventData[1].nodes;
@@ -66,14 +78,11 @@ export class PageHomeComponent implements OnInit, OnDestroy {
 
   setFilter(type: string) {
     this.view = new DataView(this.nodes, {
-      filter: function (item) {
+      filter(item) {
         return item.group == type;
       },
     });
   }
-  selectedNodeSearch = null;
-  itemsNode = null;
-  showVis = false;
 
   public ngOnInit(): void {
     this.ngxLoader.start();
@@ -85,7 +94,6 @@ export class PageHomeComponent implements OnInit, OnDestroy {
       const graph = { nodes: data.nodes, edges: data.edges };
       sessionStorage.setItem('graph', JSON.stringify(graph));
       this.setSelect(data);
-
     });
   }
 
@@ -112,12 +120,10 @@ export class PageHomeComponent implements OnInit, OnDestroy {
         },
       },
     };
-    this.showVis=false;
-    console.log('xxx')
   }
 
   public zoomIn(): void {
-    //console.log(this.visNetworkService.getScale(this.visNetwork));
+    // console.log(this.visNetworkService.getScale(this.visNetwork));
     const op: MoveToOptions = {
       scale: this.clampZoom(
         this.visNetworkService.getScale(this.visNetwork) + this.scaleFactor,
@@ -133,7 +139,7 @@ export class PageHomeComponent implements OnInit, OnDestroy {
   }
 
   public zoomOut(): void {
-    //console.log(this.visNetworkService.getScale(this.visNetwork));
+    // console.log(this.visNetworkService.getScale(this.visNetwork));
     const op: MoveToOptions = {
       scale: this.clampZoom(
         this.visNetworkService.getScale(this.visNetwork) - this.scaleFactor,
@@ -158,13 +164,13 @@ export class PageHomeComponent implements OnInit, OnDestroy {
   }
 
   public scrollDown(): void {
-    //console.log('GO TO');
+    // console.log('GO TO');
     const config: ScrollToConfigOptions = {
       target: `destination_about`,
       duration: 250,
       easing: 'easeInOutQuint',
     };
-    //console.log(config.target);
+    // console.log(config.target);
     this.scrollToService.scrollTo(config);
   }
 
@@ -189,7 +195,7 @@ export class PageHomeComponent implements OnInit, OnDestroy {
   }
 
   filter(filt: string) {
-    //console.log(this.view.get());
+    // console.log(this.view.get());
 
     this.setFilter(filt);
     this.nodes.update(this.view.get());
@@ -213,7 +219,7 @@ export class PageHomeComponent implements OnInit, OnDestroy {
   }
 
   onChange(event: any) {
-    //console.log(this.selectedNodeSearch);
+    // console.log(this.selectedNodeSearch);
     if (this.selectedNodeSearch) {
       const a = this.visNetworkService.getPositions(
         this.visNetwork,

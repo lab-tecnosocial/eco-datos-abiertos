@@ -3,7 +3,9 @@
 
   <div [ngStyle]="{'filter': (searching)?'blur(8px)':'none'}" *ngIf="visNetworkData"
     style="transition: 100ms filter linear; width: 100%;height: 100%" [visNetwork]="visNetwork"
-    [visNetworkData]="visNetworkData" [visNetworkOptions]="visNetworkOptions" (initialized)="networkInitialized()">
+    [visNetworkData]="visNetworkData" [visNetworkOptions]="visNetworkOptions" (initialized)="networkInitialized()"
+
+    >
 
   </div>
 
