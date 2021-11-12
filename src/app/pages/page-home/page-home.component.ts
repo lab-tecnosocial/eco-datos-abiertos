@@ -76,22 +76,15 @@ export class PageHomeComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.ngxLoader.start();
-    if (!sessionStorage.getItem('graph')) {
-      this.graphService.getGraph().subscribe((data) => {
-        this.nodes = new DataSet<Node>(data.nodes);
-        this.edges = new DataSet<Edge>(data.edges);
-        this.initializeGraph();
-
-        const graph = { nodes: data.nodes, edges: data.edges };
-        sessionStorage.setItem('graph', JSON.stringify(graph));
-        this.setSelect(data);
-      });
-    } else {
-      const data = JSON.parse(sessionStorage.getItem('graph'));
+    this.graphService.getGraph().subscribe((data) => {
       this.nodes = new DataSet<Node>(data.nodes);
       this.edges = new DataSet<Edge>(data.edges);
       this.initializeGraph();
-    }
+
+      const graph = { nodes: data.nodes, edges: data.edges };
+      sessionStorage.setItem('graph', JSON.stringify(graph));
+      this.setSelect(data);
+    });
   }
 
   setSelect(data: any) {
@@ -116,7 +109,6 @@ export class PageHomeComponent implements OnInit, OnDestroy {
           borderRadius: 1,
         },
       },
-
     };
   }
 

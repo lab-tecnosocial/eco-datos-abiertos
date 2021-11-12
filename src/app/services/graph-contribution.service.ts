@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +10,7 @@ export class GraphContributionService {
   public toNode: any;
   private relation: any;
   public type: string;
-  constructor() {}
+  constructor(private http:HttpClient) {}
 
   public clear():void{
     this.fromNode = undefined;
@@ -39,5 +41,10 @@ export class GraphContributionService {
         this.toNode = data;
         break;
     }
+  }
+
+
+  contribute(data:any): Observable<any>{
+    return this.http.post<any>('http://localhost:3000/v1/graph/contribute',data);
   }
 }

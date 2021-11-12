@@ -27,7 +27,12 @@
           <div class="button-new" (click)="showDialogNode(template,'FROM')">Crear Nuevo</div>
         </ng-template>
       </ng-select>
-      <button (click)="clearNode('FROM',false)" *ngIf="customFrom">sss</button>
+
+      <div style="height: 36px;" *ngIf="customFrom" fxLayout="row" fxLayoutAlign="start center" >
+        <div style="min-width: 96px;">{{selectedFrom()?.properties.name}}</div>
+        <button  (click)="clearNode('FROM',false)" >x</button>
+      </div>
+
       <div fxLayout="row" fxLayoutAlign="start center" *ngIf="selectedFrom()">
         <p style="padding: 4px;">Tags:</p>
         <tui-tag *ngFor="let tag of selectedFrom().labels" class="tag" [hoverable]="true" [value]="tag"></tui-tag>
@@ -63,7 +68,10 @@
           <div class="button-new" (click)="showDialogNode(template,'TO')">Crear Nuevo</div>
         </ng-template>
       </ng-select>
-      <button (click)="clearNode('TO',false)" *ngIf="customTo">sss</button>
+      <div style="height: 36px;" *ngIf="customTo" fxLayout="row" fxLayoutAlign="start center" >
+        <div style="min-width: 96px;">{{selectedTo()?.properties.name}}</div>
+        <button  (click)="clearNode('TO',false)" >x</button>
+      </div>
       <div fxLayout="row" fxLayoutAlign="start center" *ngIf="selectedTo()">
         <p style="padding: 4px;">Tags:</p>
         <tui-tag *ngFor="let tag of selectedTo().labels" class="tag" [hoverable]="true" [value]="tag"></tui-tag>

@@ -1,13 +1,8 @@
 import { PolymorpheusContent } from '@tinkoff/ng-polymorpheus';
 import { GraphService } from './../../services/graph.service';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  Inject,
-} from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { TuiDialogContext, TuiDialogService } from '@taiga-ui/core';
 import { GraphContributionService } from 'src/app/services/graph-contribution.service';
 import { SocialAuthService, SocialUser } from 'angularx-social-login';
@@ -54,6 +49,14 @@ export class PageContributeComponent implements OnInit {
   submitContribution() {
     console.log(this.graphServiceContribution.getNodes());
     console.log(this.graphServiceContribution.getRelation());
+
+    this.graphServiceContribution
+      .contribute({
+        nodes: this.graphServiceContribution.getNodes(),
+        relation: this.graphServiceContribution.getRelation(),
+      })
+      .subscribe();
+
     this.selectedRelation = undefined;
     this.nodeFrom = undefined;
     this.nodeTo = undefined;
@@ -69,7 +72,7 @@ export class PageContributeComponent implements OnInit {
       .subscribe();
   }
   showDialogNode(content: PolymorpheusContent<TuiDialogContext>, type: string) {
-    this.clearNode(type,true);
+    this.clearNode(type, true);
     this.graphServiceContribution.type = type;
     this.dialog = this.dialogService.open(content);
     this.dialog.subscribe();
@@ -97,7 +100,7 @@ export class PageContributeComponent implements OnInit {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
-  clearNode(type: string,custom:boolean): void {
+  clearNode(type: string, custom: boolean): void {
     switch (type) {
       case 'FROM':
         this.customFrom = custom;
