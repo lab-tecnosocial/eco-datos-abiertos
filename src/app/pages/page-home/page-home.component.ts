@@ -76,6 +76,7 @@ export class PageHomeComponent implements OnInit, OnDestroy {
     });
   }
 
+  // tslint:disable-next-line:typedef
   setFilter(type: string) {
     this.view = new DataView(this.nodes, {
       filter(item) {
