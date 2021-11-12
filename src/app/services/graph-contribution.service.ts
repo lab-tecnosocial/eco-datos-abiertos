@@ -45,6 +45,6 @@ export class GraphContributionService {
 
 
   contribute(data:any): Observable<any>{
-    return this.http.post<any>('http://localhost:3000/v1/graph/contribute',data);
+    return this.http.post<any>('https://eco-datos.herokuapp.com/v1/graph/contribute',data);
   }
 }

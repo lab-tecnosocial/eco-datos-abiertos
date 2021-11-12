@@ -1,3 +1,4 @@
+<tui-loader [overlay]="true" [showLoader]="showVis">
 <div style="width: 100%;height: calc(100vh - 71px);position:relative;">
 
   <div [ngStyle]="{'filter': (searching)?'blur(8px)':'none'}" *ngIf="visNetworkData"
@@ -105,7 +106,7 @@
   </div>
 
 </div>
-
+</tui-loader>
 
 
 <ng-template #template2 let-observer>

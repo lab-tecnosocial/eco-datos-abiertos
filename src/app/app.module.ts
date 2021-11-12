@@ -70,9 +70,9 @@ import { TechnologyFormComponent } from './components/tag/forms/technology-form/
 import { PageDataComponent } from './pages/page-data/page-data.component';
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import {
-  GoogleLoginProvider,
-  FacebookLoginProvider
+  GoogleLoginProvider
 } from 'angularx-social-login';
+import {TuiLoaderModule} from '@taiga-ui/core';
 @NgModule({
   declarations: [
     AppComponent,
@@ -140,7 +140,8 @@ import {
     TuiTagModule,
     TuiRadioBlockModule,
     TuiScrollbarModule,
-    SocialLoginModule
+    SocialLoginModule,
+    TuiLoaderModule
   ],
   providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer },
     {

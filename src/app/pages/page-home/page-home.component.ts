@@ -73,6 +73,7 @@ export class PageHomeComponent implements OnInit, OnDestroy {
   }
   selectedNodeSearch = null;
   itemsNode = null;
+  showVis = false;
 
   public ngOnInit(): void {
     this.ngxLoader.start();
@@ -84,6 +85,7 @@ export class PageHomeComponent implements OnInit, OnDestroy {
       const graph = { nodes: data.nodes, edges: data.edges };
       sessionStorage.setItem('graph', JSON.stringify(graph));
       this.setSelect(data);
+
     });
   }
 
@@ -110,6 +112,8 @@ export class PageHomeComponent implements OnInit, OnDestroy {
         },
       },
     };
+    this.showVis=false;
+    console.log('xxx')
   }
 
   public zoomIn(): void {
