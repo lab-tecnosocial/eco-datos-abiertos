@@ -22,6 +22,10 @@ export class LabHeaderComponent
   implements OnInit
 {
   public enabled = false;
+  open = false;
+  toggle(open: boolean) {
+    this.open = open;
+  }
 
   public constructor(
     private router: Router,

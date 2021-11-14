@@ -15,6 +15,16 @@
   </div>
 
   <button (click)="contribute()" class="button-58" fxHide.lt-sm style="height: 100%; width: 96px;">Contribuir</button>
-  <button fxHide.gt-xs tuiIconButton type="button" appearance="flat" icon="tuiIconMoreHorLarge"></button>
-
+  <button (click)="toggle(true)" fxHide.gt-xs tuiIconButton type="button" appearance="flat"
+    icon="tuiIconMoreHorLarge"></button>
+  <div *tuiSidebar="open; direction: 'right'">
+    <div style="padding: 16px;">
+      <button tuiIconButton type="button" appearance="secondary" icon="tuiIconRemoveLarge"
+        (click)="toggle(false)"></button>
+      <div fxLayout="column" fxLayoutAlign=" center">
+        <button (click)="contribute();toggle(false);" class="button-58"
+          style="height: 64px; width: 100%; margin-top: 8px;">Contribuir</button>
+      </div>
+    </div>
+  </div>
 </header>
