@@ -47,8 +47,8 @@ export class PageContributeComponent implements OnInit {
   }
 
   submitContribution() {
-    console.log(this.graphServiceContribution.getNodes());
-    console.log(this.graphServiceContribution.getRelation());
+    //console.log(this.graphServiceContribution.getNodes());
+    //console.log(this.graphServiceContribution.getRelation());
 
     this.graphServiceContribution
       .contribute({

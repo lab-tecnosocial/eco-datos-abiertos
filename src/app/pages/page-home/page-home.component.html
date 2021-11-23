@@ -1,4 +1,4 @@
-<tui-loader [overlay]="true" [showLoader]="showVis">
+<tui-loader [overlay]="true" [showLoader]="showVis" (tuiActiveZoneChange)="toggle(false)">
 <div style="width: 100%;height: calc(100vh - 71px);position:relative;">
 
   <div [ngStyle]="{'filter': (searching)?'blur(8px)':'none'}" *ngIf="visNetworkData"
@@ -8,9 +8,6 @@
     >
 
   </div>
-
-
-
   <ng-select class="editor-box" (change)="onChange($event)" [items]="itemsNode" [(ngModel)]="selectedNodeSearch"
     *ngIf="searching" style="position: absolute;
   top: 25%;
@@ -73,8 +70,7 @@
 
 
 
-  <div *tuiSidebar="open; direction: 'right'">
-    <tui-accordion [rounded]="false">
+  <div *tuiSidebar="open; direction: 'right'" >
       <div style="padding: 16px;">
         <button tuiIconButton type="button" appearance="secondary" icon="tuiIconRemoveLarge"
           (click)="toggle(false)"></button>
@@ -104,7 +100,6 @@
           <a *ngFor="let link of selectedNode[0].properties.url" tuiLink href="{{link}}" target="_blank">{{link}}</a>
         </div>
       </div>
-    </tui-accordion>
   </div>
 
 </div>
